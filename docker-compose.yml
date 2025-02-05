@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./config/.env
+    ports:
+      - '3000:3000'
+    command: pnpm run start:debug
+    volumes:
+      - ./:/app/
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true
