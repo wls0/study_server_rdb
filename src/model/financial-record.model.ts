@@ -57,11 +57,11 @@ export class FinancialRecord implements IFinancialRecord {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @OneToOne(() => FinancialTag, (tag) => tag.id)
+  @ManyToOne(() => FinancialTag, (tag) => tag.id)
   @JoinColumn({ name: 'tagId' })
   tag: FinancialTag;
 
-  @OneToOne(() => FinancialPaymentSource, (paymentSource) => paymentSource.id)
+  @ManyToOne(() => FinancialPaymentSource, (paymentSource) => paymentSource.id)
   @JoinColumn({ name: 'paymentSourceId' })
   paymentSource: FinancialPaymentSource;
 }

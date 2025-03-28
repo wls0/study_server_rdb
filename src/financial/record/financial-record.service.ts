@@ -38,6 +38,21 @@ export class FinancialRecordService {
    * @returns 기록 생성 결과
    */
   async createRecord(userId: string, body: CreateRecordReqDto) {
+    const { incomeExpenseType, paymentSourceId, tagId, title, amount, memo, date } = body;
+
+    const [payment, tag] = await Promise.all([
+      this.financialPaymentSourceRepository.findPaymentSourceById(paymentSourceId),
+      this.financialTagRepository.findTagById(tagId),
+    ]);
+
+    if (!payment) {
+      throw new NotFoundException('not found payment source');
+    }
+
+    if (!tag) {
+      throw new NotFoundException('not found tag');
+    }
+
     return await this.financialRecordRepository.createRecord({ userId, ...body });
   }
 
